@@ -294,6 +294,157 @@
     color:var(--terracotta);
   }
 
+  /* ===== GALERIE PHOTO ===== */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:6px;
+    padding:0 0 0 0;
+  }
+  .gallery img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    cursor:pointer;
+    transition:opacity 0.2s ease;
+  }
+  .gallery img:hover{opacity:0.85;}
+  .gallery .g-item{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:var(--paper-dark);
+  }
+  .gallery .g-item.wide{
+    grid-column:span 2;
+    aspect-ratio:2/1;
+  }
+
+  .lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(20,16,10,0.92);
+    z-index:999;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .lightbox.open{display:flex;}
+  .lightbox img{
+    max-width:100%;
+    max-height:90vh;
+    border-radius:2px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  }
+  .lightbox .close-lb{
+    position:absolute;
+    top:20px;
+    right:24px;
+    color:#f1e9d8;
+    font-size:2rem;
+    cursor:pointer;
+    font-family:'Inter';
+    line-height:1;
+  }
+
+  /* ===== ITINÉRAIRE JOUR PAR JOUR ===== */
+  .itinerary{
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    margin-top:22px;
+  }
+  .itinerary-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .itinerary-toggle .tips-label{margin-bottom:0;}
+  .itinerary-toggle .chev{
+    color:var(--terracotta);
+    font-size:0.85rem;
+    transition:transform 0.25s ease;
+  }
+  .itinerary.open .itinerary-toggle .chev{transform:rotate(90deg);}
+
+  .itinerary-days{
+    display:none;
+    margin-top:18px;
+  }
+  .itinerary.open .itinerary-days{display:block;}
+
+  .day{
+    position:relative;
+    padding:0 0 22px 30px;
+    border-left:1px solid var(--line);
+    margin-left:6px;
+  }
+  .day:last-child{padding-bottom:2px;}
+  .day::before{
+    content:"";
+    position:absolute;
+    left:-5px;
+    top:2px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--terracotta);
+    border:2px solid var(--paper);
+    box-shadow:0 0 0 1px var(--terracotta);
+  }
+  .day-head{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+  .day-num{
+    font-family:'Caveat', cursive;
+    font-size:1.2rem;
+    color:var(--terracotta);
+    font-weight:600;
+  }
+  .day-date{
+    font-family:'Inter';
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .day-title{
+    font-family:'Fraunces', serif;
+    font-size:1.05rem;
+    font-weight:600;
+    margin:0 0 6px;
+  }
+  .day p{
+    font-size:0.9rem;
+    line-height:1.58;
+    color:var(--ink);
+    margin:0;
+  }
+  .day .stay{
+    display:inline-block;
+    font-family:'Inter';
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    color:var(--stamp);
+    border:1px solid var(--stamp);
+    padding:2px 9px;
+    border-radius:100px;
+    margin-top:8px;
+  }
+  .day .optional{
+    display:block;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-top:6px;
+  }
+
   .badge-current{
     display:inline-block;
     font-family:'Caveat', cursive;
@@ -429,31 +580,132 @@
   <main class="destinations container">
 
     <!-- BALI -->
-    <article class="dest" id="bali">
-      <div class="dest-grid">
-        <div class="dest-photo">
-          <div>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l4-5 3 3 5-7 6 9H3z"/></svg>
-            <span class="ph-label">Photo à venir<br>Bali</span>
-          </div>
-          <div class="stamp"><span class="stamp-text">Bali<br>Indonésie</span></div>
+    <article class="dest" id="bali" style="display:block;">
+      <div class="gallery">
+        <div class="g-item wide"><img src="images/bali/02-rizieres-tegalalang.jpg" alt="Rizières de Tegalalang, Bali" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/01-foret-singes.jpg" alt="Forêt des singes, Ubud" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/03-cascade-sekumpul.jpg" alt="Cascade de Sekumpul" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/04-manta-point.jpg" alt="Plongée Manta Point, Nusa Penida" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/05-diamond-beach.jpg" alt="Diamond Beach, Nusa Penida" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/06-temple-lac-beratan.jpg" alt="Temple du lac Beratan" onclick="openLightbox(this.src)"></div>
+        <div class="g-item wide"><img src="images/bali/07-gili-trawangan-drone.jpg" alt="Vue aérienne de Gili Trawangan" onclick="openLightbox(this.src)"></div>
+        <div class="g-item"><img src="images/bali/08-catamaran-ponton.jpg" alt="Ponton catamaran, Gili Trawangan" onclick="openLightbox(this.src)"></div>
+      </div>
+
+      <div class="dest-content" style="padding:32px 40px;">
+        <span class="dest-meta"><span class="dot"></span>Indonésie · Asie du Sud-Est</span>
+        <h2>Bali</h2>
+        <span class="region">+ Nusa Penida & les îles Gili</span>
+        <div class="stars">★★★★★</div>
+        <p class="desc">
+          Rizières, temples et eau turquoise — Bali reste une référence pour qui cherche à la fois nature, culture et détente. Nusa Penida pour les falaises spectaculaires, les Gili pour le rythme plus lent et la plongée.
+        </p>
+        <div class="tips">
+          <span class="tips-label">Mes tips</span>
+          <ul>
+            <li>Loue un scooter pour Nusa Penida, les routes sont sportives mais ça vaut le coup</li>
+            <li>Évite la saison des pluies (nov-mars) pour profiter à fond des spots extérieurs</li>
+            <li>Les Gili se font sans voiture ni scooter : ambiance vélo/calèche, très relax</li>
+          </ul>
         </div>
-        <div class="dest-content">
-          <span class="dest-meta"><span class="dot"></span>Indonésie · Asie du Sud-Est</span>
-          <h2>Bali</h2>
-          <span class="region">+ Nusa Penida & les îles Gili</span>
-          <div class="stars">★★★★★</div>
-          <p class="desc">
-            Rizières, temples et eau turquoise — Bali reste une référence pour qui cherche à la fois nature, culture et détente. Nusa Penida pour les falaises spectaculaires, les Gili pour le rythme plus lent et la plongée.
-          </p>
-          <div class="tips">
-            <span class="tips-label">Mes tips</span>
-            <ul>
-              <li>Loue un scooter pour Nusa Penida, les routes sont sportives mais ça vaut le coup</li>
-              <li>Évite la saison des pluies (nov-mars) pour profiter à fond des spots extérieurs</li>
-              <li>Les Gili se font sans voiture ni scooter : ambiance vélo/calèche, très relax</li>
-            </ul>
+      </div>
+
+      <div class="itinerary" style="padding:0 40px 36px;">
+        <div class="itinerary-toggle" onclick="this.closest('.itinerary').classList.toggle('open')">
+          <span class="tips-label">📍 Itinéraire jour par jour (15 jours)</span>
+          <span class="chev">▶</span>
+        </div>
+        <div class="itinerary-days">
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 1</span><span class="day-date">30 juin</span></div>
+            <h4 class="day-title">Arrivée à Ubud</h4>
+            <p>Installation pour une première nuit, le temps de récupérer du vol et de prendre ses marques dans la végétation luxuriante d'Ubud.</p>
+            <span class="stay">🏡 Nuit à Sitala Villa, Ubud</span>
           </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 2</span><span class="day-date">1er juillet</span></div>
+            <h4 class="day-title">Forêt des singes & rizières de Tegalalang</h4>
+            <p>Balade dans la célèbre <strong>forêt des singes</strong> d'Ubud, puis direction les rizières en terrasses de <strong>Tegalalang</strong>, l'un des paysages les plus photographiés de Bali. Visite de plusieurs <strong>cascades</strong> aux alentours.</p>
+            <span class="optional">💡 En option : Tibumana Waterfall ou Tegenungan Waterfall, toutes deux très accessibles depuis Ubud</span>
+            <span class="stay">🏡 Nuit à Zenubud, Ubud</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 3</span><span class="day-date">2 juillet</span></div>
+            <h4 class="day-title">Journée détente en ville</h4>
+            <p>Jour calme pour explorer le centre d'Ubud à pied : marché traditionnel, boutiques d'artisanat, cafés. Une pause bienvenue après les premières journées bien remplies.</p>
+            <span class="optional">💡 En option : balade au Campuhan Ridge, belle marche dans les collines juste au-dessus d'Ubud</span>
+            <span class="stay">🏡 Nuit à Zenubud, Ubud</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 4</span><span class="day-date">3 juillet</span></div>
+            <h4 class="day-title">Culture locale, plantations & temples du lac</h4>
+            <p>Rencontre avec des <strong>peintres locaux</strong> puis visite d'une plantation de <strong>café et thé (Alam Sari)</strong> avec dégustation. Direction le <strong>lac Beratan</strong> et son temple emblématique posé sur l'eau, puis le temple royal <strong>Pura Taman Ayun</strong>, entouré de douves et de jardins. Route ensuite vers Munduk, dans les hauteurs du nord de l'île.</p>
+            <span class="stay">🏡 Nuit à Kayukopi, Munduk</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 5</span><span class="day-date">4 juillet</span></div>
+            <h4 class="day-title">Dauphins à Lovina & cascades de Sekumpul</h4>
+            <p>Départ matinal pour une <strong>excursion dauphins à Lovina Beach</strong>, suivie de snorkeling dans des eaux turquoises. L'après-midi, randonnée à travers la jungle pour rejoindre la célèbre <strong>cascade de Sekumpul</strong> et plusieurs autres chutes d'eau alentour — l'une des plus belles randonnées de l'île, à deux pas de Munduk.</p>
+            <span class="stay">🏡 Nuit à Uma Swari Villa, Sidemen</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 6</span><span class="day-date">5 juillet</span></div>
+            <h4 class="day-title">Sidemen puis direction Padangbai</h4>
+            <p>Matinée dans la vallée verdoyante de <strong>Sidemen</strong>, loin des foules, avant de prendre la route vers <strong>Padangbai</strong>, petit village de pêcheurs avec de belles plages, pour préparer le départ en ferry vers Nusa Penida le lendemain.</p>
+            <span class="optional">💡 En option : Blue Lagoon Beach ou White Sand Beach, à deux pas de Padangbai</span>
+            <span class="stay">🏡 Nuit à OK Divers Resort & Spa, Padangbai</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 7</span><span class="day-date">6 juillet</span></div>
+            <h4 class="day-title">Nusa Penida — scooter & baptême de plongée</h4>
+            <p>Traversée en ferry vers <strong>Nusa Penida</strong>. Exploration de l'île en scooter sur ses routes sportives, et premier <strong>cours de plongée</strong> (baptême) dans l'après-midi.</p>
+            <span class="stay">🏨 Nuit à Tanah Damai Hotel, Nusa Penida</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 8</span><span class="day-date">7 juillet</span></div>
+            <h4 class="day-title">Plongée à Manta Point & Diamond Beach</h4>
+            <p>Matinée plongée avec un spot mythique : <strong>Manta Point</strong>, suivi d'un second site. Après-midi détente avec la visite de la spectaculaire <strong>Diamond Beach</strong> et balade en scooter sur les falaises.</p>
+            <span class="optional">💡 En option : Kelingking Beach et Broken Beach, à voir si le temps le permet — incontournables de Nusa Penida</span>
+            <span class="stay">🏨 Nuit à Tanah Damai Hotel, Nusa Penida</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 9 à 12</span><span class="day-date">8 – 11 juillet</span></div>
+            <h4 class="day-title">Gili Trawangan — plage, snorkeling & catamaran</h4>
+            <p>Transfert vers <strong>Gili Trawangan</strong> pour quatre jours au rythme des Gili : farniente sur la plage, <strong>snorkeling</strong> dans les eaux cristallines, et une <strong>balade en catamaran privé</strong> autour des îles. Pas de voiture ni de scooter ici — uniquement vélo et calèche, pour un séjour résolument relax.</p>
+            <span class="optional">💡 En option : tour des 3 îles Gili en bateau, ou plongée avec les tortues, très fréquentes autour de Trawangan</span>
+            <span class="stay">🏡 Nuits à Gili Joglo, Gili Trawangan</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 13</span><span class="day-date">12 juillet</span></div>
+            <h4 class="day-title">Retour à Bali, direction Jimbaran</h4>
+            <p>Transfert depuis les Gili vers le sud de Bali, à <strong>Jimbaran</strong>. Après-midi chill, avec la découverte des plages alentour et un passage par le célèbre spot de surf d'<strong>Uluwatu</strong>.</p>
+            <span class="stay">🏡 Nuit à Lily Villa Jimbaran by Fays Hospitality</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 14</span><span class="day-date">13 juillet</span></div>
+            <h4 class="day-title">Garuda Wisnu Kencana</h4>
+            <p>Visite de la fameuse statue <strong>Garuda Wisnu Kencana (GWK)</strong>, l'une des plus hautes statues du monde, perchée sur les hauteurs du sud de Bali.</p>
+            <span class="optional">💡 En option : le temple d'Uluwatu, perché sur la falaise, avec son spectacle de danse Kecak au coucher du soleil</span>
+            <span class="stay">🏡 Nuit à Lily Villa Jimbaran by Fays Hospitality</span>
+          </div>
+
+          <div class="day">
+            <div class="day-head"><span class="day-num">Jour 15</span><span class="day-date">14 juillet</span></div>
+            <h4 class="day-title">Dernière matinée & départ</h4>
+            <p>Derniers moments à Jimbaran avant le départ — petit-déjeuner face à la mer pour clôturer ce séjour de 15 jours entre Ubud, le nord de l'île, Nusa Penida, les Gili et le sud de Bali.</p>
+          </div>
+
         </div>
       </div>
     </article>
@@ -544,12 +796,25 @@
     </div>
   </footer>
 
+  <div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+    <span class="close-lb" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <script>
     const items = document.querySelectorAll('.dest');
     const obs = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in-view'); });
     }, {threshold:0.15});
     items.forEach(i=>obs.observe(i));
+
+    function openLightbox(src){
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox(){
+      document.getElementById('lightbox').classList.remove('open');
+    }
   </script>
 
 </body>
